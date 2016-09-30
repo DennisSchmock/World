@@ -8,6 +8,7 @@ package facade;
 import entity.City;
 import entity.Country;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
