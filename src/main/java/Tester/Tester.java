@@ -29,6 +29,10 @@ public class Tester {
         List<Country> countries = cf.getCountries();
         List<Country> countriesMinPop = cf.getCountriesMinPop(10000000);
 
+        City city = new City("","daf", 124345);
+        city.setCountryCode(c1);
+        cf.createCity(c1, city);
+
         String json = jsc.createCountryJson(countries);
         System.out.println(json);
 
@@ -38,5 +42,5 @@ public class Tester {
 //            System.out.println(country.getName());
 //
 //        }
-          }
+    }
 }

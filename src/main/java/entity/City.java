@@ -60,8 +60,10 @@ public class City implements Serializable {
     @NotNull
     @Column(name = "Population")
     private int population;
+    
     @OneToMany(mappedBy = "capital", fetch = FetchType.LAZY)
     private Collection<Country> countryCollection;
+    
     @JoinColumn(name = "CountryCode", referencedColumnName = "Code")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Country countryCode;
@@ -73,6 +75,12 @@ public class City implements Serializable {
         this.id = id;
     }
 
+    public City(String district, String name, int population) {
+        this.district = district;
+        this.name = name;
+        this.population = population;
+    }
+    
     public City(Integer id, String name, String district, int population) {
         this.id = id;
         this.name = name;

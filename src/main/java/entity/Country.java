@@ -113,7 +113,7 @@ public class Country implements Serializable {
     private City capital;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryCode", fetch = FetchType.LAZY)
     private Collection<City> cityCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "country", fetch = FetchType.LAZY)
     private Collection<Countrylanguage> countrylanguageCollection;
 
     public Country() {

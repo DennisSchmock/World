@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Country list</title>
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/scripts.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Country List</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li id="listcountries"><a href="#">List countries</a></li>
+                </ul>
+            </div>
+        </nav>  
+        <div class="container" id="countrytable">
+            <table class=" table table-striped"><thead><tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Continent</th>
+                        <th>Capital</th>
+                        <th>Actions</th>
+                        
+                    </tr></thead><tbody id="countrylist"></tbody></table>
+        </div>
+        
+         <div class="container" id="citytable">
+            <table class=" table table-striped"><thead><tr>
+                        <th>Name</th>
+                        <th>Population</th>
+                        
+                        
+                        
+                    </tr></thead><tbody id="citylist"></tbody></table>
+        </div>
+
+    </body>
+</html>
