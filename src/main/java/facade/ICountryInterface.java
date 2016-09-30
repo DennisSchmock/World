@@ -20,7 +20,7 @@ public interface ICountryInterface {
     public Country getCountry(String code);
     public List<Country> getCountries();
     public List<Country> getCountriesMinPop(int population);
-    public List<City> getCities(String country);
+    public List<City> getCities(Country country);
     public City createCity(Country country, City city);
     public EntityManager getEntityManager();
     

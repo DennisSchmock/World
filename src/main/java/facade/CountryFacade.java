@@ -7,43 +7,106 @@ package facade;
 
 import entity.City;
 import entity.Country;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 /**
  *
  * @author Dennis
  */
 public class CountryFacade implements ICountryInterface {
+    private static EntityManagerFactory emf;
 
+    
+    public CountryFacade(EntityManagerFactory emf){
+       this.emf = emf;
+    }
     @Override
     public Country getCountry(String code) {
-        return null;
+        EntityManager em = getEntityManager();
+        Country country = null;
+        try{
+            country = em.find(Country.class, code);
+            
+        }finally {
+            em.close();
+        }
+        
+        return country;
+       
     }
 
     @Override
     public List<Country> getCountries() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                EntityManager em = getEntityManager();
+                List<Country> countries = new ArrayList();
+                try{
+                    Query q = em.createQuery("Select c From Country c");
+                    countries = q.getResultList();
+                    
+                    
+                }finally{
+                    em.close();
+                }
+                return countries;
+
     }
 
     @Override
     public List<Country> getCountriesMinPop(int population) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+                List<Country> countries = new ArrayList();
+                try{
+                    Query q = em.createQuery("Select c From Country c where c.population > ?1");
+                    q.setParameter(1, population);
+                    countries = q.getResultList();
+                    
+                    
+                }finally{
+                    em.close();
+                }
+                return countries;
     }
 
     @Override
-    public List<City> getCities(String country) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<City> getCities(Country country) {
+        EntityManager em = getEntityManager();
+                List<City> cities = new ArrayList();
+                try{
+                    Query q = em.createQuery("Select ci From City ci where ci.countryCode = ?1");
+                    q.setParameter("1", country);
+                    cities = q.getResultList();
+                    
+                    
+                }finally{
+                    em.close();
+                }
+                return cities;
     }
 
     @Override
     public City createCity(Country country, City city) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         EntityManager em = getEntityManager();
+         try{
+             country.getCityCollection().add(city);
+             city.setCountryCode(country);
+             em.getTransaction().begin();
+             em.persist(city);
+             em.merge(country);
+             em.getTransaction().commit();
+         } finally{
+             em.close();
+         }
+         return city;
+        
     }
 
     @Override
     public EntityManager getEntityManager() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return emf.createEntityManager();
     }
     
 }
