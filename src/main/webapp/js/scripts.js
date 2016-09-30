@@ -18,10 +18,10 @@ $(function () {
 
         renderList();
 
-    })
+    });
 
     $("#countrylist").on("click", "a.cities", function () {
-                event.preventDefault();
+        event.preventDefault();
 
         $("#countrytable").hide();
         $("#citytable").show();
