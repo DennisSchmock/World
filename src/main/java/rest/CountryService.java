@@ -5,6 +5,10 @@
  */
 package rest;
 
+import facade.CountryFacade;
+import facade.ICountryInterface;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -13,6 +17,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import util.JSONConverter;
 
 /**
  * REST Web Service
@@ -24,30 +29,21 @@ public class CountryService {
 
     @Context
     private UriInfo context;
+    private static JSONConverter jscon = new JSONConverter();
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+    private static ICountryInterface cf = new CountryFacade(emf); 
 
     /**
      * Creates a new instance of CountryService
      */
     public CountryService() {
+        
     }
-
-    /**
-     * Retrieves representation of an instance of rest.CountryService
-     * @return an instance of java.lang.String
-     */
+    
     @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCountries(){
+        return jscon.createCountryJson(cf.getCountries());
     }
-
-    /**
-     * PUT method for updating or creating an instance of CountryService
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
-    }
+    
 }

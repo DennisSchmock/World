@@ -11,6 +11,7 @@ import facade.CountryFacade;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import util.JSONConverter;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Tester {
 
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
     private static CountryFacade cf = new CountryFacade(emf);
+    private static JSONConverter jsc = new JSONConverter();
 
     public static void main(String[] args) {
         Country c1 = cf.getCountry("AGO");
@@ -27,10 +29,8 @@ public class Tester {
         List<Country> countries = cf.getCountries();
         List<Country> countriesMinPop = cf.getCountriesMinPop(10000000);
 
-        for (City city : cities) {
-            System.out.println(city.getName());
-
-        }
+        String json = jsc.createCountryJson(countries);
+        System.out.println(json);
 
 //        System.out.println("Total number of countries:" + countries.size());
 //
@@ -38,11 +38,5 @@ public class Tester {
 //            System.out.println(country.getName());
 //
 //        }
-        System.out.println("Total number of countries:" + countriesMinPop.size());
-
-        for (Country country : countriesMinPop) {
-            System.out.println(country.getName());
-
-        }
-    }
+          }
 }
