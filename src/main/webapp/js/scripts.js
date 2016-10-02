@@ -47,7 +47,7 @@ $(function () {
                     $('#countrylist').append("<tr><td>" + country.code + "</td><td>" + country.name
                             + "</td><td> " + country.continent + "</td><td>"
                             + country.capital + "</td><td>"
-                            + "<a href='#' class='cities' data-city='" + country.code + "'>List cities </a>/<a href='#' class='addcity' data-personid='" + country.code + "'> Add city</a></td></tr>"
+                            + "<a href='#' class='cities' data-city='" + country.code + "'>List cities </a></td></tr>"
                             );
                 });
             }
