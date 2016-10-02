@@ -37,7 +37,7 @@ public class CountryService {
     private UriInfo context;
     private static JSONConverter jscon = new JSONConverter();
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-    private static ICountryInterface cf = new CountryFacade(emf);
+    private static CountryFacade cf = new CountryFacade(emf);
     private static Gson gson = new Gson();
 
     /**
@@ -74,10 +74,33 @@ public class CountryService {
     public String createCity(@PathParam("code") String code, String json) {
         Country country = cf.getCountry(code);
         System.out.println(country.getName());
-        City city = jscon.createCityFromJson(json,country);
+        City city = jscon.createCityFromJson(json, country);
         System.out.println("From createCity, after Jsoncon" + city.getName());
         cf.createCity(country, city);
         return jscon.createCityJson(city);
+
+    }
+
+    @Path("search")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCountrySearchNoParam() {
+        return jscon.createCountryJson(cf.getCountries());
+
+    }
+    
+    
+    @Path("search/{search}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCountrySearch(@PathParam("search") String search) {
+        if (search == null || search.equalsIgnoreCase("")) {
+            return jscon.createCountryJson(cf.getCountries());
+
+        } else {
+            return jscon.createCountryJson(cf.getCountriesSearch(search));
+
+        }
 
     }
 
